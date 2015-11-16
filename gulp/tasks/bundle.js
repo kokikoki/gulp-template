@@ -28,11 +28,10 @@ function compile(isUglify, isWatch) {
     });
 
     function bundle() {
-        return bundler.bundle().on('error', function (err) {
-            $.util.log(err.message);
-            browserSync.notify("Browserify Error!");
-            this.emit("end");
-            })
+        return bundler.bundle().on('error', $.notify.onError({
+                title: 'Bundle Error',
+                message: "<%= error.message %>"
+            }))
             .pipe(source(config.app))
             .pipe(buffer())
             .pipe($.if(isUglify, $.uglify({preserveComments: 'some'})))
