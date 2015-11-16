@@ -4,7 +4,7 @@ var config = require('../config.js').sass;
 
 gulp.task("sass", function() {
     gulp.src(config.src + '/*.scss')
-        .pipe($.plumber())
+        .pipe($.plumber({errorHandler: $.notify.onError('<%= error.message %>')}))
         .pipe($.sass(config.options))
         .pipe($.pleeease(config.please.options))
         .pipe(gulp.dest(config.dest))

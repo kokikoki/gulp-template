@@ -14,18 +14,18 @@ var ect_option = {data: function(filename, cb) {
 gulp.task('ect', function() {
     _.each(dir, function (v, i) {
         gulp.src(pather.join(config.base, v, '*.ect'))
-            .pipe($.plumber())
+            .pipe($.plumber({errorHandler: $.notify.onError('<%= error.message %>')}))
             .pipe($.ect(ect_option))
-            .pipe(gulp.dest(pather.join(config.dest, v)))
+            .pipe(gulp.dest(pather.join(config.dest, v)));
     });
 });
 
 _.each(dir, function (v, i) {
     gulp.task('ect_'+v, function() {
         gulp.src(pather.join(config.base, v, '*.ect'))
-            .pipe($.plumber())
+            .pipe($.plumber({errorHandler: $.notify.onError('<%= error.message %>')}))
             .pipe($.ect(ect_option))
-            .pipe(gulp.dest(pather.join(config.dest, v)))
+            .pipe(gulp.dest(pather.join(config.dest, v)));
     });
 });
 
